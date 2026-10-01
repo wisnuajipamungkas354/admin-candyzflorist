@@ -230,6 +230,14 @@ export default function KatalogFormPage() {
       formData.append('deskripsi', deskripsi.trim());
       formData.append('kategori_ids', selectedCategories.join(','));
 
+      // Append retained existing photos for update synchronization
+      if (isEdit) {
+        formData.append('existing_photos', JSON.stringify(existingPhotos));
+        existingPhotos.forEach((photo) => {
+          formData.append('existing_photos[]', photo);
+        });
+      }
+
       // Attach new/cropped files
       for (let file of newFiles) {
         formData.append('images', file);
