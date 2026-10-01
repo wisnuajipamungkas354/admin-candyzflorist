@@ -80,7 +80,7 @@ export default function KatalogFormPage() {
           
           const catIds = (product.kategori || []).map((c) => (typeof c === 'object' ? String(c.id) : String(c)));
           setSelectedCategories(catIds);
-          setExistingPhotos(product.foto_produk || []);
+          setExistingPhotos((product.foto_produk || []).filter((p) => typeof p === 'string' && p.trim() !== ''));
         }
       }
     } catch (err) {
