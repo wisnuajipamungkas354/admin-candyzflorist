@@ -6,8 +6,8 @@ import ThemeToggle from '../components/ThemeToggle';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('admin@candyzflorist.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -76,7 +76,7 @@ export default function LoginPage() {
           )}
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} autoComplete="off" className="space-y-4">
             <div className="space-y-1.5">
               <label className="text-xs font-semibold uppercase tracking-wider text-floral-dark/80 dark:text-slate-300">
                 Email / Username
@@ -90,6 +90,9 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@candyzflorist.com"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  spellCheck="false"
                   className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800/60 border border-floral-pink-200/80 dark:border-slate-700 rounded-xl text-floral-dark dark:text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-floral-pink-500 transition-all"
                   required
                 />
@@ -109,6 +112,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
+                  autoComplete="new-password"
                   className="w-full pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-800/60 border border-floral-pink-200/80 dark:border-slate-700 rounded-xl text-floral-dark dark:text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-floral-pink-500 transition-all"
                   required
                 />
