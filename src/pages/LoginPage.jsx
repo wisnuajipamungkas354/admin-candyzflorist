@@ -54,12 +54,8 @@ export default function LoginPage() {
           {/* Brand Header */}
           <div className="text-center space-y-2">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-floral-pink-50 dark:bg-floral-pink-950/60 text-floral-pink-500 mb-2 border border-floral-pink-200/60 dark:border-floral-pink-900/40 shadow-xs">
-              <Flower2 className="w-7 h-7" />
-            </div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-floral-pink-50 dark:bg-floral-pink-950/50 text-[11px] font-semibold text-floral-pink-600 dark:text-floral-pink-400 border border-floral-pink-200/60">
-              <Sparkles className="w-3 h-3" />
-              <span>Florist Karawang Admin</span>
-            </div>
+              <img src="/logo.jpg" alt="CandyzFlorist Logo" className="w-7 h-7" />
+            </div>            
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-floral-dark dark:text-white font-sans">
               CandyzFlorist
             </h1>
@@ -89,7 +85,7 @@ export default function LoginPage() {
                   type="text"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@candyzflorist.com"
+                  placeholder="Masukkan email atau username"
                   autoComplete="off"
                   autoCorrect="off"
                   spellCheck="false"
@@ -149,7 +145,7 @@ export default function LoginPage() {
 
           {/* Demo helper */}
           <div className="pt-2 text-center text-[11px] text-floral-muted dark:text-slate-500 border-t border-floral-pink-100 dark:border-slate-800">
-            <p>Akun Default: <span className="font-mono text-floral-dark dark:text-slate-300">admin@candyzflorist.com</span> / <span className="font-mono text-floral-dark dark:text-slate-300">admin123</span></p>
+            <p>© 2026 Candyzflorist Karawang. All rights reserved.</p>
           </div>
         </div>
       </div>
