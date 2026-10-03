@@ -35,7 +35,7 @@ export default function AdminLayout() {
         <div className="h-16 flex items-center justify-between px-6 border-b border-floral-pink-100 dark:border-[#33262A]">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-floral-pink-50 dark:bg-floral-pink-950/60 text-floral-pink-500 flex items-center justify-center border border-floral-pink-200/80 dark:border-floral-pink-900/40 shadow-xs">
-              <Flower2 className="w-5 h-5" />
+              <img className="w-5 h-5" src="/logo.jpg" alt="CandyzFlorist Logo" />
             </div>
             <div>
               <span className="font-bold text-base tracking-tight text-floral-dark dark:text-white block leading-none">

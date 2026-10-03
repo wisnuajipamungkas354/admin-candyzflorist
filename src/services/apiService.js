@@ -129,6 +129,18 @@ export const kategoriApi = {
   },
 };
 
+export const normalizeImageUrl = (url) => {
+  if (!url || typeof url !== 'string') return '';
+  url = url.trim();
+  if (url.startsWith('http://')) {
+    return url.replace('http://', 'https://');
+  }
+  if (url.startsWith('//')) {
+    return `https:${url}`;
+  }
+  return url;
+};
+
 // 3. Katalog API
 export const katalogApi = {
   getAll: async (params = {}) => {
@@ -148,40 +160,58 @@ export const katalogApi = {
 
     try {
       const res = await request(url, { method: 'GET' });
+      let items = [];
+      let pagination = {
+        current_page: page,
+        per_page: limit,
+        total_items: 0,
+        total_pages: 1,
+      };
+
       if (res.data && res.data.items && res.data.pagination) {
-        return res.data;
-      }
+        items = res.data.items;
+        pagination = res.data.pagination;
+      } else {
+        let list = Array.isArray(res.data) ? res.data : (res.data?.items || []);
+        if (search) {
+          const q = search.toLowerCase();
+          list = list.filter((p) => p.nama_produk?.toLowerCase().includes(q) || p.deskripsi?.toLowerCase().includes(q));
+        }
 
-      // If backend returned plain array, handle filtering and slicing manually
-      let list = Array.isArray(res.data) ? res.data : (res.data?.items || []);
-      
-      if (search) {
-        const q = search.toLowerCase();
-        list = list.filter((p) => p.nama_produk?.toLowerCase().includes(q) || p.deskripsi?.toLowerCase().includes(q));
-      }
-
-      if (kategoriId && kategoriId !== 'ALL') {
-        list = list.filter((p) => {
-          return p.kategori?.some((c) => {
-            const cId = typeof c === 'object' ? String(c.id) : String(c);
-            return cId === String(kategoriId);
+        if (kategoriId && kategoriId !== 'ALL') {
+          list = list.filter((p) => {
+            return p.kategori?.some((c) => {
+              const cId = typeof c === 'object' ? String(c.id) : String(c);
+              return cId === String(kategoriId);
+            });
           });
-        });
-      }
+        }
 
-      const totalItems = list.length;
-      const totalPages = Math.ceil(totalItems / limit) || 1;
-      const startIndex = (page - 1) * limit;
-      const slicedItems = list.slice(startIndex, startIndex + limit);
-
-      return {
-        items: slicedItems,
-        pagination: {
+        const totalItems = list.length;
+        const totalPages = Math.ceil(totalItems / limit) || 1;
+        const startIndex = (page - 1) * limit;
+        items = list.slice(startIndex, startIndex + limit);
+        pagination = {
           current_page: page,
           per_page: limit,
           total_items: totalItems,
           total_pages: totalPages,
-        },
+        };
+      }
+
+      // Normalize image URLs
+      items = items.map((p) => {
+        let photos = Array.isArray(p.foto_produk) ? p.foto_produk : (p.foto_produk ? [p.foto_produk] : []);
+        photos = photos.map(normalizeImageUrl).filter(Boolean);
+        return {
+          ...p,
+          foto_produk: photos,
+        };
+      });
+
+      return {
+        items,
+        pagination,
       };
     } catch (error) {
       console.error('katalogApi.getAll error:', error);
@@ -191,6 +221,14 @@ export const katalogApi = {
 
   getById: async (id) => {
     const res = await request(API_ENDPOINTS.KATALOG.DETAIL(id), { method: 'GET' });
+    if (res.data) {
+      let photos = Array.isArray(res.data.foto_produk) ? res.data.foto_produk : (res.data.foto_produk ? [res.data.foto_produk] : []);
+      photos = photos.map(normalizeImageUrl).filter(Boolean);
+      return {
+        ...res.data,
+        foto_produk: photos,
+      };
+    }
     return res.data;
   },
 
