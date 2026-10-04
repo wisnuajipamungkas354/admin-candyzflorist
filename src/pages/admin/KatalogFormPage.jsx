@@ -15,16 +15,6 @@ import {
 import { katalogApi, kategoriApi } from '../../services/apiService';
 import ImageCropperModal from '../../components/ImageCropperModal';
 
-const generateSlug = (text) => {
-  return text
-    .toString()
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/\-\-+/g, '-');
-};
-
 const MAX_FILE_SIZE_MB = 2;
 const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
@@ -35,8 +25,6 @@ export default function KatalogFormPage() {
 
   const [categories, setCategories] = useState([]);
   const [namaProduk, setNamaProduk] = useState('');
-  const [slug, setSlug] = useState('');
-  const [isManualSlug, setIsManualSlug] = useState(false);
   const [harga, setHarga] = useState('');
   const [deskripsi, setDeskripsi] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -73,8 +61,6 @@ export default function KatalogFormPage() {
         const product = await katalogApi.getById(id);
         if (product) {
           setNamaProduk(product.nama_produk || '');
-          setSlug(product.slug || '');
-          setIsManualSlug(true);
           setHarga(product.harga || '');
           setDeskripsi(product.deskripsi || '');
           
@@ -91,16 +77,7 @@ export default function KatalogFormPage() {
   };
 
   const handleNamaChange = (e) => {
-    const value = e.target.value;
-    setNamaProduk(value);
-    if (!isManualSlug) {
-      setSlug(generateSlug(value));
-    }
-  };
-
-  const handleSlugChange = (e) => {
-    setIsManualSlug(true);
-    setSlug(generateSlug(e.target.value));
+    setNamaProduk(e.target.value);
   };
 
   const handleToggleCategory = (catId) => {
@@ -205,11 +182,6 @@ export default function KatalogFormPage() {
       return;
     }
 
-    if (!slug.trim()) {
-      setError('Slug wajib diisi.');
-      return;
-    }
-
     if (!harga || Number(harga) <= 0) {
       setError('Harga produk harus diisi dengan angka valid.');
       return;
@@ -225,7 +197,6 @@ export default function KatalogFormPage() {
     try {
       const formData = new FormData();
       formData.append('nama_produk', namaProduk.trim());
-      formData.append('slug', slug.trim());
       formData.append('harga', String(harga));
       formData.append('deskripsi', deskripsi.trim());
       formData.append('kategori_ids', selectedCategories.join(','));
@@ -315,24 +286,6 @@ export default function KatalogFormPage() {
                 onChange={handleNamaChange}
                 placeholder="Contoh: Blushing Rose & Baby Breath Bouquet"
                 className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#2E2428] border border-floral-pink-200/80 dark:border-[#3D2D33] rounded-xl text-xs sm:text-sm text-floral-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-floral-pink-500"
-                required
-              />
-            </div>
-
-            {/* Slug */}
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <label className="text-xs font-semibold text-floral-dark dark:text-slate-300 uppercase tracking-wider">
-                  Slug URL <span className="text-floral-pink-500">*</span>
-                </label>
-                <span className="text-[11px] text-floral-muted">Auto-generate dari nama</span>
-              </div>
-              <input
-                type="text"
-                value={slug}
-                onChange={handleSlugChange}
-                placeholder="contoh: blushing-rose-baby-breath-bouquet"
-                className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#2E2428] border border-floral-pink-200/80 dark:border-[#3D2D33] rounded-xl text-xs sm:text-sm font-mono text-floral-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-floral-pink-500"
                 required
               />
             </div>

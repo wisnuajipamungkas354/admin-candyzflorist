@@ -89,29 +89,31 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
         {stats.map((stat, i) => {
           const Icon = stat.icon;
           return (
             <Link
               key={i}
               to={stat.link}
-              className="bg-white dark:bg-[#221A1D] border border-floral-pink-200/70 dark:border-[#3D2D33] rounded-2xl p-5 hover:border-floral-pink-400 dark:hover:border-floral-pink-700 transition-all group flex flex-col justify-between shadow-xs hover:shadow-md"
+              className={`bg-white dark:bg-[#221A1D] border border-floral-pink-200/70 dark:border-[#3D2D33] rounded-2xl p-3.5 sm:p-5 hover:border-floral-pink-400 dark:hover:border-floral-pink-700 transition-all group flex flex-col justify-between shadow-xs hover:shadow-md ${
+                i === 2 ? 'col-span-2 sm:col-span-1' : ''
+              }`}
             >
               <div className="flex items-start justify-between">
-                <div className={`p-3 rounded-xl border ${stat.color}`}>
-                  <Icon className="w-5 h-5" />
+                <div className={`p-2 sm:p-3 rounded-xl border ${stat.color}`}>
+                  <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 <ArrowUpRight className="w-4 h-4 text-floral-muted/40 group-hover:text-floral-pink-500 transition-colors" />
               </div>
-              <div className="mt-4">
-                <span className="text-xs text-floral-muted dark:text-slate-400 font-medium block">
+              <div className="mt-3 sm:mt-4">
+                <span className="text-[11px] sm:text-xs text-floral-muted dark:text-slate-400 font-medium truncate block">
                   {stat.label}
                 </span>
-                <span className="text-2xl font-extrabold text-floral-dark dark:text-white mt-1 block">
+                <span className="text-lg sm:text-2xl font-extrabold text-floral-dark dark:text-white mt-0.5 sm:mt-1 truncate block">
                   {loading ? '...' : stat.value}
                 </span>
-                <span className="text-[11px] text-floral-muted/80 dark:text-slate-500 mt-0.5 block">
+                <span className="text-[10px] sm:text-[11px] text-floral-muted/80 dark:text-slate-500 mt-0.5 truncate block">
                   {stat.desc}
                 </span>
               </div>

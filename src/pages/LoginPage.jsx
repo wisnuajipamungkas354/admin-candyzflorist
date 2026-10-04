@@ -53,8 +53,8 @@ export default function LoginPage() {
         <div className="bg-white dark:bg-slate-900 border border-floral-pink-200/70 dark:border-slate-800 rounded-3xl shadow-xl shadow-floral-pink-500/5 p-6 sm:p-9 space-y-6">
           {/* Brand Header */}
           <div className="text-center space-y-2">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-floral-pink-50 dark:bg-floral-pink-950/60 text-floral-pink-500 mb-2 border border-floral-pink-200/60 dark:border-floral-pink-900/40 shadow-xs">
-              <img src="/logo.jpg" alt="CandyzFlorist Logo" className="w-7 h-7" />
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full overflow-hidden border border-floral-pink-200/80 dark:border-floral-pink-900/60 shadow-md mb-2 shrink-0">
+              <img src="/logo.jpg" alt="CandyzFlorist Logo" className="w-full h-full object-cover" />
             </div>            
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-floral-dark dark:text-white font-sans">
               CandyzFlorist

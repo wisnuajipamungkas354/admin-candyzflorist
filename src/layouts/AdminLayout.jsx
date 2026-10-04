@@ -33,9 +33,9 @@ export default function AdminLayout() {
       <aside className="hidden md:flex md:w-64 flex-col fixed inset-y-0 left-0 bg-white dark:bg-[#221A1D] border-r border-floral-pink-200/70 dark:border-[#3D2D33] z-30 shadow-xs">
         {/* Brand Header */}
         <div className="h-16 flex items-center justify-between px-6 border-b border-floral-pink-100 dark:border-[#33262A]">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-floral-pink-50 dark:bg-floral-pink-950/60 text-floral-pink-500 flex items-center justify-center border border-floral-pink-200/80 dark:border-floral-pink-900/40 shadow-xs">
-              <img className="w-5 h-5" src="/logo.jpg" alt="CandyzFlorist Logo" />
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full overflow-hidden border border-floral-pink-200/80 dark:border-floral-pink-900/60 shadow-xs shrink-0">
+              <img className="w-full h-full object-cover" src="/logo.jpg" alt="CandyzFlorist Logo" />
             </div>
             <div>
               <span className="font-bold text-base tracking-tight text-floral-dark dark:text-white block leading-none">
@@ -92,9 +92,9 @@ export default function AdminLayout() {
 
       {/* ================= MOBILE TOP APP BAR ================= */}
       <header className="md:hidden sticky top-0 z-30 bg-white/95 dark:bg-[#221A1D]/95 backdrop-blur border-b border-floral-pink-200/70 dark:border-[#3D2D33] px-4 h-14 flex items-center justify-between shadow-xs">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-floral-pink-50 dark:bg-floral-pink-950/60 text-floral-pink-500 flex items-center justify-center border border-floral-pink-200/80">
-            <Flower2 className="w-4 h-4" />
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-full overflow-hidden border border-floral-pink-200/80 dark:border-floral-pink-900/60 shadow-xs shrink-0">
+            <img className="w-full h-full object-cover" src="/logo.jpg" alt="CandyzFlorist Logo" />
           </div>
           <span className="font-bold text-sm tracking-tight text-floral-dark dark:text-white">
             CandyzFlorist
